@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Main</title>
+
+    <style>
+    </style>
+</head>
+<body>
+  <h1>Main Iframe</h1>
+  <ul>
+    <li><button id="monitoring">Monitoring</button></li>
+    <li><button id="my-profile">My Profile</button></li>
+  </ul>
+
+  <script>
+    // STEP 4: listen for message from parent iframe (index.html)
+    window.addEventListener('message', (event) => {
+        // NOTE: this is the origin of your site
+        if (event.origin !== 'http://localhost:9090') {
+          return;
+        }
+
+        console.log('STEP 4 (main.html): listening for message from parent (index.html)', event.data);
+
+        if (event.data && event.data.action === 'focus') {
+          console.log(event.data);
+          const element = document.querySelector(`#${event.data.targetId}`);
+          console.log("STEP 5 (main.html): received focus action + element from (index.html) now focus on element", element);
+          if (element) {
+            element.focus();
+          }
+        }
+      }, false);
+  </script>
+</body>
+</html>

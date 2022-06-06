@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Side bar</title>
+
+    <style>
+    </style>
+</head>
+<body>
+    <h1>Side-bar Iframe</h1>
+    <ul>
+      <li><button class="side-bar-button" id="monitoring" data-target-id="monitoring" data-frame="crm_frame">Monitoring</button></li>
+      <li><button class="side-bar-button" id="my-profile" data-target-id="my-profile" data-frame="crm_frame">My Profile</a></li>
+    </ul>
+
+    <script>
+      // STEP 1: when user clicks on My Profile post a message to parent window (index.html) with the link and target iframe
+      document.addEventListener('click', (event) => {
+        if (event.target.classList.contains('side-bar-button')) {
+          const message = {
+            targetId: event.target.dataset.targetId,
+            frame: event.target.dataset.frame
+          };
+          window.top.postMessage(message, 'http://localhost:9090'); // NOTE: this is the origin of your site
+          console.log("STEP 1 (sidebar.html): #my-profile clicked with following message sent to INDEX.html", message);
+        }
+      })
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Main</title>
+
+    <style>
+    </style>
+</head>
+<body>
+    <h1>Parent (Index)</h1>
+    <iframe src="side-bar.html" name="control_frame" title="control_frame"></iframe>
+    <iframe src="main.html" name="crm_frame" title="crm_frame"></iframe>
+
+    <script>
+      // STEP 2: listen for message from child iframe side-bar.html e.g. could be a key value of link and iframe
+      window.addEventListener('message', (event) => {
+        // NOTE: this is the origin of your site
+        if (event.origin !== 'http://localhost:9090') {
+          return;
+        }
+
+        console.log('STEP 2 (index.html): listening for message from child (sidebar.html)', event.data);
+
+        if (event.data && event.data.frame === 'crm_frame') {
+          // STEP 3: post that message to child iframe main.html
+          const message = {
+            targetId: event.data.targetId,
+            action: 'focus'
+          }; 
+          window.frames['crm_frame'].postMessage(message, 'http://localhost:9090'); // NOTE: this is the origin of your site
+          console.log("STEP 3 (sidebar.html): #my-profile clicked with following message sent to INDEX.html");
+        }
+      }, false);
+    </script>
+</body>
+</html>

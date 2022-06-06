@@ -1,0 +1,2 @@
+# INTRO
+This repo experiements with some basic parent to child (iframe) communication to move keyboard focus beween the iframes. Essentially clicking on `My Profile` in the `side-bar.html` iframe should then move focus to the `My Profile` button in the `main.html` iframe.
